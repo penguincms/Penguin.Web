@@ -9,10 +9,10 @@
     <Description>Not Available</Description>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="Penguin.SystemExtensions" Version="1.0.1-T9UEQKY" />
-    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="1.0.1-T9UEQI2" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <PackageReference Include="Penguin.Extensions.String" Version="3.0.3-T9UEPPA" />
+    <PackageReference Include="Penguin.SystemExtensions" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="1.0.1-T9UFJ6O" />
+    <PackageReference Include="Penguin.Extensions.String" Version="3.0.3-T9UFJ6O" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
