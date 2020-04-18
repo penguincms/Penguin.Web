@@ -11,6 +11,9 @@ namespace Penguin.Web
 {
     public class HttpHeaderCollection : IListCollection<HttpHeader>, IConvertible<string>, IDictionary<string, string>
     {
+        public override string ToString() => string.Join("\r\n", BackingList);
+        
+
         private readonly CustomHttpHeaderFactory HeaderFactory = new CustomHttpHeaderFactory(new List<Type>()
         {
             typeof(Connection),
@@ -81,7 +84,7 @@ namespace Penguin.Web
             return this.BackingList.Any(h => string.Equals(h.Key, key, StringComparison.OrdinalIgnoreCase));
         }
 
-        string IConvertible<string>.Convert() => string.Join("\r\n", BackingList);
+        string IConvertible<string>.Convert() => this.ToString();
 
         void IConvertible<string>.Convert(string fromT)
         {

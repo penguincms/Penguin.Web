@@ -10,9 +10,9 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <PackageReference Include="Penguin.Extensions.String" Version="3.0.3-T9UPDS1" />
-    <PackageReference Include="Penguin.SystemExtensions" Version="1.0.1-T9UPDS1" />
-    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="1.0.1-T9UPDS1" />
+    <ProjectReference Include="..\Penguin.Extensions.String\Penguin.Extensions.String.Local.csproj" />
+    <ProjectReference Include="..\Penguin.SystemExtensions\Penguin.SystemExtensions.Local.csproj" />
+    <ProjectReference Include="..\Penguin.SystemExtensions.Abstractions\Penguin.SystemExtensions.Abstractions.Local.csproj" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
