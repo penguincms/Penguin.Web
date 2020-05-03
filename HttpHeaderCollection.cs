@@ -11,9 +11,6 @@ namespace Penguin.Web
 {
     public class HttpHeaderCollection : IListCollection<HttpHeader>, IConvertible<string>, IDictionary<string, string>
     {
-        public override string ToString() => string.Join("\r\n", BackingList);
-        
-
         private readonly CustomHttpHeaderFactory HeaderFactory = new CustomHttpHeaderFactory(new List<Type>()
         {
             typeof(Connection),
@@ -70,7 +67,15 @@ namespace Penguin.Web
             }
         }
 
-        public bool AddOrUpdate(HttpHeader header) => AddOrUpdate(header.Key, header.Value);
+        public bool AddOrUpdate(HttpHeader header)
+        {
+            if (header is null)
+            {
+                throw new ArgumentNullException(nameof(header));
+            }
+
+           return AddOrUpdate(header.Key, header.Value);
+        }
 
         public bool Contains(KeyValuePair<string, string> item)
         {
@@ -90,7 +95,7 @@ namespace Penguin.Web
         {
             string source = fromT.Trim();
             //Convert from old format
-            if (source.StartsWith("[") && source.EndsWith("]"))
+            if (source.StartsWith("[", StringComparison.OrdinalIgnoreCase) && source.EndsWith("]", StringComparison.OrdinalIgnoreCase))
             {
                 source = source.Trim('[').Trim(']');
 
@@ -209,6 +214,11 @@ namespace Penguin.Web
 
         public override void Insert(int index, HttpHeader item)
         {
+            if (item is null)
+            {
+                throw new ArgumentNullException(nameof(item));
+            }
+
             this.BackingList.Insert(index, HeaderFactory.GetHeader(item.Key, item.Value));
         }
 
@@ -232,6 +242,8 @@ namespace Penguin.Web
             }
             return false;
         }
+
+        public override string ToString() => string.Join("\r\n", BackingList);
 
         public bool TryGetValue(string key, out string value)
         {

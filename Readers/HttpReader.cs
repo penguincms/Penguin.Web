@@ -50,7 +50,7 @@ namespace Penguin.Web.Readers
             }
         }
 
-        public byte[] DecodeBodyBytes(IEnumerable<byte> toDecode)
+        public static byte[] DecodeBodyBytes(IEnumerable<byte> toDecode)
         {
             byte[] chunkedBodyBytes = toDecode.ToArray();
 

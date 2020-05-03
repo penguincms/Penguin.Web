@@ -1,19 +1,22 @@
 ﻿using Penguin.SystemExtensions.Abstractions.Interfaces;
+using Penguin.Web.Abstractions.Interfaces;
 using Penguin.Web.Headers;
 using Penguin.Web.Readers;
+using System.Collections.Generic;
 using System.Text;
 
 namespace Penguin.Web
 {
-    public abstract class HttpInteractionBase : IConvertible<string>
+    public abstract class HttpInteractionBase : IConvertible<string>, IHttpInteractionBase
     {
         public string BodyText { get; set; }
         public HttpHeaderCollection Headers { get; protected set; } = new HttpHeaderCollection();
         public abstract string HttpVersion { get; }
-
+        public string ContentType => Headers["Content-Type"];
         protected string HeaderLine { get; set; }
 
         protected byte[] Raw { get; set; }
+        IDictionary<string, string> IHttpInteractionBase.Headers => Headers;
 
         public HttpInteractionBase(byte[] raw)
         {

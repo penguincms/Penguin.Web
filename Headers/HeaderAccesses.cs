@@ -3,7 +3,7 @@
 namespace Penguin.Web.Headers
 {
     [Flags]
-    public enum HeaderAccess
+    public enum HeaderAccesses
     {
         Unset = 0,
         Server = 1,

@@ -1,9 +1,10 @@
 ﻿using Penguin.Extensions.Strings;
+using Penguin.Web.Abstractions.Interfaces;
 using System;
 
 namespace Penguin.Web
 {
-    public class HttpServerRequest : HttpInteractionBase
+    public class HttpServerRequest : HttpInteractionBase, IHttpServerRequest
     {
         public string HttpString => HeaderLine;
 

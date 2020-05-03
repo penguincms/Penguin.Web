@@ -1,8 +1,9 @@
 ﻿using Penguin.Extensions.Strings;
+using Penguin.Web.Abstractions.Interfaces;
 
 namespace Penguin.Web
 {
-    public class HttpServerResponse : HttpInteractionBase
+    public class HttpServerResponse : HttpInteractionBase, IHttpServerResponse
     {
         public override string HttpVersion => HeaderLine.To(" ");
 

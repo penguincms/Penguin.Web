@@ -13,6 +13,7 @@
     <ProjectReference Include="..\Penguin.Extensions.String\Penguin.Extensions.String.Local.csproj" />
     <ProjectReference Include="..\Penguin.SystemExtensions\Penguin.SystemExtensions.Local.csproj" />
     <ProjectReference Include="..\Penguin.SystemExtensions.Abstractions\Penguin.SystemExtensions.Abstractions.Local.csproj" />
+    <ProjectReference Include="..\Penguin.Web.Abstractions\Penguin.Web.Abstractions.Local.csproj" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
