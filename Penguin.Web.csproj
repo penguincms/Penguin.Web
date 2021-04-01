@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <PackageReference Include="Penguin.SystemExtensions" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.2-TA9KKLU" />
-    <PackageReference Include="Penguin.Extensions.String" Version="5.0.2-TA9KKLU" />
+    <PackageReference Include="Penguin.SystemExtensions" Version="5.0.2-TACG2R6" />
+    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="5.0.2-TACG2R6" />
+    <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.2-TACG2R6" />
+    <PackageReference Include="Penguin.Extensions.String" Version="5.0.2-TACG2R6" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
