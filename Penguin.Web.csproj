@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <PackageProjectUrl>https://github.com/penguincms/Penguin.Web</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Web</PackageProjectUrl>
     <DocumentationFile>Penguin.Web.xml</DocumentationFile>
     <Version>5.0.5</Version>
     <AssemblyName>Penguin.Web</AssemblyName>
@@ -10,10 +10,10 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
-    <PackageReference Include="Penguin.SystemExtensions" Version="5.0.4" />
-    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="5.0.4" />
-    <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.4" />
-    <PackageReference Include="Penguin.Extensions.String" Version="5.0.6-TAEO1KM" />
+    <PackageReference Include="Penguin.SystemExtensions" Version="5.0.6-TAHULSY" />
+    <PackageReference Include="Penguin.SystemExtensions.Abstractions" Version="5.0.6-TAHULSY" />
+    <PackageReference Include="Penguin.Web.Abstractions" Version="5.0.6-TAHULSY" />
+    <PackageReference Include="Penguin.Extensions.String" Version="5.0.6-TAHULSY" />
   </ItemGroup>
   <Import Project="Penguin.Projects.Shared\Penguin.Projects.Shared.csproj" />
 </Project>
