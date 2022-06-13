@@ -1,4 +1,4 @@
-﻿using Penguin.Extensions.Strings;
+﻿using Penguin.Extensions.String;
 using Penguin.Web.Abstractions.Interfaces;
 
 namespace Penguin.Web

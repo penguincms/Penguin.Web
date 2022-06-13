@@ -1,4 +1,4 @@
-﻿using Penguin.Extensions.Strings;
+﻿using Penguin.Extensions.String;
 using Penguin.SystemExtensions.Abstractions.Interfaces;
 using Penguin.Web.Headers;
 using System;
