@@ -22,7 +22,7 @@ namespace Penguin.Web
 
                 string origin = Headers["origin"];
 
-                if (!(origin is null))
+                if (origin is not null)
                 {
                     toReturn += origin;
                 }
@@ -33,7 +33,7 @@ namespace Penguin.Web
             }
             set
             {
-                Uri uri = new Uri(value);
+                Uri uri = new(value);
 
                 string origin = uri.GetLeftPart(UriPartial.Authority);
 

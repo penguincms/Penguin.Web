@@ -6,7 +6,7 @@ namespace Penguin.Web.Headers
 {
     public class CustomHttpHeaderFactory
     {
-        private Dictionary<string, Type> CustomTypes = new Dictionary<string, Type>(StringComparer.OrdinalIgnoreCase);
+        private readonly Dictionary<string, Type> CustomTypes = new(StringComparer.OrdinalIgnoreCase);
 
         public CustomHttpHeaderFactory(IEnumerable<Type> CustomHttpHeaders)
         {
@@ -28,17 +28,9 @@ namespace Penguin.Web.Headers
                 return new HttpHeader();
             }
 
-            HttpHeader header;
-
-            if (CustomTypes.TryGetValue(Key.Replace("-", "").Trim(), out Type t))
-            {
-                header = Activator.CreateInstance(t) as HttpHeader;
-            }
-            else
-            {
-                header = new HttpHeader();
-            }
-
+            HttpHeader header = CustomTypes.TryGetValue(Key.Replace("-", "").Trim(), out Type t)
+                ? Activator.CreateInstance(t) as HttpHeader
+                : new HttpHeader();
             header.Key = Key;
             header.Value = Value;
 

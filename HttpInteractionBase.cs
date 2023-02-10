@@ -29,10 +29,10 @@ namespace Penguin.Web
 
         public virtual string Convert()
         {
-            StringBuilder sb = new StringBuilder();
+            StringBuilder sb = new();
             foreach (byte b in Raw)
             {
-                sb.Append(b);
+                _ = sb.Append(b);
             }
             return sb.ToString();
         }
@@ -45,7 +45,7 @@ namespace Penguin.Web
         {
             Raw = raw;
 
-            HttpReader reader = new HttpReader(raw);
+            HttpReader reader = new(raw);
 
             foreach (HttpHeader header in reader.Headers)
             {

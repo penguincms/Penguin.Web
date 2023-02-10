@@ -11,7 +11,7 @@ namespace Penguin.Web
 {
     public class HttpHeaderCollection : IListCollection<HttpHeader>, IConvertible<string>, IDictionary<string, string>
     {
-        private readonly CustomHttpHeaderFactory HeaderFactory = new CustomHttpHeaderFactory(new List<Type>()
+        private readonly CustomHttpHeaderFactory HeaderFactory = new(new List<Type>()
         {
             typeof(Connection),
             typeof(Cookie),
@@ -19,14 +19,14 @@ namespace Penguin.Web
             typeof(IfModifiedSince)
         });
 
-        public ICollection<string> Keys => this.BackingList.Select(h => h.Key).ToList();
+        public ICollection<string> Keys => BackingList.Select(h => h.Key).ToList();
 
-        public ICollection<string> Values => this.BackingList.Select(h => h.Value).ToList();
+        public ICollection<string> Values => BackingList.Select(h => h.Value).ToList();
 
         public override HttpHeader this[int index]
         {
-            get => ((IList<HttpHeader>)this.BackingList)[index];
-            set => this.AddOrUpdate(value);
+            get => BackingList[index];
+            set => AddOrUpdate(value);
         }
 
         public string this[string key]
@@ -37,17 +37,17 @@ namespace Penguin.Web
 
         public override void Add(HttpHeader item)
         {
-            this.AddOrUpdate(item);
+            _ = AddOrUpdate(item);
         }
 
         public void Add(string key, string value)
         {
-            this.AddOrUpdate(key, value);
+            _ = AddOrUpdate(key, value);
         }
 
         public void Add(KeyValuePair<string, string> item)
         {
-            AddOrUpdate(item.Key, item.Value);
+            _ = AddOrUpdate(item.Key, item.Value);
         }
 
         public bool AddOrUpdate(string key, string value)
@@ -69,12 +69,7 @@ namespace Penguin.Web
 
         public bool AddOrUpdate(HttpHeader header)
         {
-            if (header is null)
-            {
-                throw new ArgumentNullException(nameof(header));
-            }
-
-           return AddOrUpdate(header.Key, header.Value);
+            return header is null ? throw new ArgumentNullException(nameof(header)) : AddOrUpdate(header.Key, header.Value);
         }
 
         public bool Contains(KeyValuePair<string, string> item)
@@ -86,10 +81,13 @@ namespace Penguin.Web
 
         public bool ContainsKey(string key)
         {
-            return this.BackingList.Any(h => string.Equals(h.Key, key, StringComparison.OrdinalIgnoreCase));
+            return BackingList.Any(h => string.Equals(h.Key, key, StringComparison.OrdinalIgnoreCase));
         }
 
-        string IConvertible<string>.Convert() => this.ToString();
+        string IConvertible<string>.Convert()
+        {
+            return ToString();
+        }
 
         void IConvertible<string>.Convert(string fromT)
         {
@@ -107,7 +105,7 @@ namespace Penguin.Web
                 source += ','; //Comma as temp solution for now to trick it into adding the last item
 
                 int bracket = 0;
-                StringBuilder sb = new StringBuilder();
+                StringBuilder sb = new();
 
                 for (int i = 0; i < source.Length; i++)
                 {
@@ -128,7 +126,7 @@ namespace Penguin.Web
                             {
                                 case 0:
                                     string header = sb.ToString();
-                                    sb.Clear();
+                                    _ = sb.Clear();
 
                                     List<string> vals = header.SplitQuotedString().Select(v => v.Trim()).ToList();
 
@@ -140,7 +138,7 @@ namespace Penguin.Web
 
                                     int vLength = 0;
 
-                                    List<char> trim = new List<char>()
+                                    List<char> trim = new()
                                     {
                                         '\r',
                                         '\n',
@@ -160,18 +158,18 @@ namespace Penguin.Web
                                         }
                                     } while (vLength != Value.Length);
 
-                                    AddOrUpdate(Key, Value);
+                                    _ = AddOrUpdate(Key, Value);
 
                                     break;
 
                                 default:
-                                    sb.Append(c);
+                                    _ = sb.Append(c);
                                     break;
                             }
                             break;
 
                         default:
-                            sb.Append(c);
+                            _ = sb.Append(c);
                             break;
                     }
                 }
@@ -180,13 +178,13 @@ namespace Penguin.Web
             {
                 foreach (string header in source.Split('\n').Select(h => h.Trim()))
                 {
-                    HttpHeader placeholder = new HttpHeader();
+                    HttpHeader placeholder = new();
 
                     (placeholder as IConvertible<string>).Convert(header);
 
                     if (placeholder.Key != null)
                     {
-                        AddOrUpdate(placeholder);
+                        _ = AddOrUpdate(placeholder);
                     }
                 }
             }
@@ -197,11 +195,14 @@ namespace Penguin.Web
             throw new NotImplementedException();
         }
 
-        public HttpHeader Find(string key) => this.BackingList.SingleOrDefault(h => h.Key == key);
+        public HttpHeader Find(string key)
+        {
+            return BackingList.SingleOrDefault(h => h.Key == key);
+        }
 
         IEnumerator<KeyValuePair<string, string>> IEnumerable<KeyValuePair<string, string>>.GetEnumerator()
         {
-            foreach (HttpHeader header in this.BackingList)
+            foreach (HttpHeader header in BackingList)
             {
                 yield return new KeyValuePair<string, string>(header.Key, header.Value);
             }
@@ -209,7 +210,7 @@ namespace Penguin.Web
 
         public int IndexOf(string key)
         {
-            return this.IndexOf(this.Find(key));
+            return IndexOf(Find(key));
         }
 
         public override void Insert(int index, HttpHeader item)
@@ -219,36 +220,39 @@ namespace Penguin.Web
                 throw new ArgumentNullException(nameof(item));
             }
 
-            this.BackingList.Insert(index, HeaderFactory.GetHeader(item.Key, item.Value));
+            BackingList.Insert(index, HeaderFactory.GetHeader(item.Key, item.Value));
         }
 
         public bool Remove(string key)
         {
-            bool val = this.ContainsKey(key);
+            bool val = ContainsKey(key);
 
-            this.BackingList = this.BackingList.Where(h => !string.Equals(h.Key, key, StringComparison.OrdinalIgnoreCase)).ToList();
+            BackingList = BackingList.Where(h => !string.Equals(h.Key, key, StringComparison.OrdinalIgnoreCase)).ToList();
 
             return val;
         }
 
         public bool Remove(KeyValuePair<string, string> item)
         {
-            HttpHeader h = this.Find(item.Key);
+            HttpHeader h = Find(item.Key);
 
             if (h?.Value == item.Value)
             {
-                BackingList.Remove(h);
+                _ = BackingList.Remove(h);
                 return true;
             }
             return false;
         }
 
-        public override string ToString() => string.Join("\r\n", BackingList);
+        public override string ToString()
+        {
+            return string.Join("\r\n", BackingList);
+        }
 
         public bool TryGetValue(string key, out string value)
         {
             value = this[key];
-            return !(value is null);
+            return value is not null;
         }
     }
 }

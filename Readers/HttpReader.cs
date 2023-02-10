@@ -13,9 +13,9 @@ namespace Penguin.Web.Readers
 {
     public class HttpReader
     {
-        private byte[] DecodedBody;
+        private readonly byte[] DecodedBody;
 
-        private List<HttpHeader> headers = new List<HttpHeader>();
+        private readonly List<HttpHeader> headers = new();
 
         public IEnumerable<byte> Body => DecodedBody ?? RawBody;
 
@@ -56,7 +56,7 @@ namespace Penguin.Web.Readers
 
             int curPos = 0;
             int chunkSize = 0;
-            List<byte> bodyBytesL = new List<byte>();
+            List<byte> bodyBytesL = new();
 
             do
             {
@@ -101,7 +101,7 @@ namespace Penguin.Web.Readers
 
             foreach (string header in headerString.Split("\r\n").Skip(1))
             {
-                HttpHeader httpHeader = new HttpHeader();
+                HttpHeader httpHeader = new();
 
                 (httpHeader as IConvertible<string>).Convert(header);
 
@@ -113,25 +113,21 @@ namespace Penguin.Web.Readers
         {
             // Create a GZIP stream with decompression mode.
             // ... Then create a buffer and write into while reading from the GZIP stream.
-            using (GZipStream stream = new GZipStream(new MemoryStream(gzip.ToArray()), CompressionMode.Decompress))
+            using GZipStream stream = new(new MemoryStream(gzip.ToArray()), CompressionMode.Decompress);
+            const int size = 4096;
+            byte[] buffer = new byte[size];
+            using MemoryStream memory = new();
+            int count = 0;
+            do
             {
-                const int size = 4096;
-                byte[] buffer = new byte[size];
-                using (MemoryStream memory = new MemoryStream())
+                count = stream.Read(buffer, 0, size);
+                if (count > 0)
                 {
-                    int count = 0;
-                    do
-                    {
-                        count = stream.Read(buffer, 0, size);
-                        if (count > 0)
-                        {
-                            memory.Write(buffer, 0, count);
-                        }
-                    }
-                    while (count > 0);
-                    return memory.ToArray();
+                    memory.Write(buffer, 0, count);
                 }
             }
+            while (count > 0);
+            return memory.ToArray();
         }
 
         private void SetHeaderBreak()

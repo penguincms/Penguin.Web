@@ -18,23 +18,29 @@ namespace Penguin.Web.Headers
         {
         }
 
-        string IConvertible<string>.Convert() => ToString();
+        string IConvertible<string>.Convert()
+        {
+            return ToString();
+        }
 
         void IConvertible<string>.Convert(string fromT)
         {
             string source = fromT.Trim();
 
-            if (!source.Contains(":"))
+            if (!source.Contains(':'))
             {
                 return;
             }
 
             int c = source.IndexOf(':');
 
-            Key = source.Substring(0, c).Trim();
-            Value = source.Substring(c + 1).Trim();
+            Key = source[..c].Trim();
+            Value = source[(c + 1)..].Trim();
         }
 
-        public override string ToString() => $"{Key}: {Value}";
+        public override string ToString()
+        {
+            return $"{Key}: {Value}";
+        }
     }
 }

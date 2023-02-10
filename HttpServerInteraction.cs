@@ -5,6 +5,9 @@
         public HttpServerRequest Request { get; set; }
         public HttpServerResponse Response { get; set; }
 
-        public override string ToString() => Request?.Url?.ToString();
+        public override string ToString()
+        {
+            return Request?.Url?.ToString();
+        }
     }
 }
