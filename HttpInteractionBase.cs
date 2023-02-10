@@ -10,12 +10,17 @@ namespace Penguin.Web
     public abstract class HttpInteractionBase : IConvertible<string>, IHttpInteractionBase
     {
         public string BodyText { get; set; }
+
         public HttpHeaderCollection Headers { get; protected set; } = new HttpHeaderCollection();
+
         public abstract string HttpVersion { get; }
+
         public string ContentType => Headers["Content-Type"];
+
         protected string HeaderLine { get; set; }
 
         protected byte[] Raw { get; set; }
+
         IDictionary<string, string> IHttpInteractionBase.Headers => Headers;
 
         protected HttpInteractionBase(byte[] raw)
