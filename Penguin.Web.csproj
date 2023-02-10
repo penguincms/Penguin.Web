@@ -1,12 +1,13 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.0;netstandard2.1;net5.0</TargetFrameworks>
-    <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Web</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PenguinCms/Penguin.Web</PackageProjectUrl>
     <DocumentationFile>Penguin.Web.xml</DocumentationFile>
     <Version>5.0.5</Version>
     <AssemblyName>Penguin.Web</AssemblyName>
     <RootNamespace>Penguin.Web</RootNamespace>
     <Description>Not Available</Description>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
