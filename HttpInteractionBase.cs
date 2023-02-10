@@ -18,12 +18,12 @@ namespace Penguin.Web
         protected byte[] Raw { get; set; }
         IDictionary<string, string> IHttpInteractionBase.Headers => Headers;
 
-        public HttpInteractionBase(byte[] raw)
+        protected HttpInteractionBase(byte[] raw)
         {
             Fill(raw);
         }
 
-        public HttpInteractionBase()
+        protected HttpInteractionBase()
         {
         }
 
