@@ -1,5 +1,5 @@
 ﻿using Loxifi;
-using Penguin.Extensions.String;
+using Loxifi.Extensions.StringExtensions;
 using Penguin.SystemExtensions.Abstractions.Interfaces;
 using Penguin.SystemExtensions.Collections;
 using Penguin.Web.Headers;
@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StringSplitOptions = Loxifi.Extensions.StringExtensions.StringSplitOptions;
 
 namespace Penguin.Web
 {
@@ -129,7 +130,7 @@ namespace Penguin.Web
                                     string header = sb.ToString();
                                     _ = sb.Clear();
 
-                                    List<string> vals = header.SplitQuotedString().Select(v => v.Trim()).ToList();
+                                    List<string> vals = header.Split(new StringSplitOptions()).Select(v => v.Trim()).ToList();
 
                                     string Key = null;
                                     string Value = null;

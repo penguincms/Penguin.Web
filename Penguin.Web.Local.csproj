@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFrameworks>netstandard2.1;net7.0</TargetFrameworks>
-    <PackageProjectUrl>https://github.com/PenguinCms/Penguin.Web</PackageProjectUrl>
+    <PackageProjectUrl>https://github.com/PenguinCMS/Penguin.Web</PackageProjectUrl>
     <DocumentationFile>Penguin.Web.xml</DocumentationFile>
     <Version>5.0.5</Version>
     <AssemblyName>Penguin.Web</AssemblyName>
@@ -10,6 +10,7 @@
     <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
+    <PackageReference Include="Loxifi.Extensions.StringExtensions" Version="0.1.0" />
     <PackageReference Include="System.ComponentModel.Annotations" Version="4.7.0" />
     <ProjectReference Include="..\Penguin.Extensions.String\Penguin.Extensions.String.Local.csproj" />
     <ProjectReference Include="..\Penguin.SystemExtensions\Penguin.SystemExtensions.Local.csproj" />
